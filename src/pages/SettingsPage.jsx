@@ -1,4 +1,4 @@
-
+import { useEffect } from 'react'
 import useLocalStorage from '../hooks/useLocalStorage'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 
@@ -9,6 +9,14 @@ function SettingsPage() {
   })
 
   useDocumentTitle('Settings')
+
+  // Apply the selected theme to the entire website
+  useEffect(() => {
+    document.documentElement.classList.toggle(
+      'dark',
+      settings.theme === 'dark'
+    )
+  }, [settings.theme])
 
   function updateSetting(name, value) {
     setSettings((previousSettings) => ({
@@ -41,7 +49,6 @@ function SettingsPage() {
       </div>
 
       <div className="space-y-6">
-
         {/* Theme Settings */}
         <section className="bg-white p-6 rounded-2xl shadow-sm">
           <h2 className="text-xl font-bold text-slate-900">
@@ -134,7 +141,6 @@ function SettingsPage() {
             Reset Settings
           </button>
         </section>
-
       </div>
     </div>
   )
